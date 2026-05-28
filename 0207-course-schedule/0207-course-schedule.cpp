@@ -1,21 +1,19 @@
 class Solution {
 public:
-    bool dfs(int i,  vector<vector<int>> &adjList, vector<int> &vis, vector<int> &pathVis){
-        vis[i] = 1;
-        pathVis[i] = 1;
-
+    bool dfs(int i,  vector<vector<int>> &adjList, vector<int> &vis){
+        vis[i] = 2;
         for(auto it : adjList[i]){
             if(!vis[it]){
-                if(dfs(it,adjList,vis,pathVis) == true){
+                if(dfs(it,adjList,vis) == true){
                     return true;
                 }
             }
-            else if(pathVis[it]){
+            else if(vis[it] == 2){
                 return true;
             }
         }
 
-        pathVis[i] = 0;
+        vis[i] = 1;
         return false;
     }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
@@ -26,10 +24,9 @@ public:
             adjList[v].push_back(u);
         }
         vector<int>vis(numCourses,0);
-        vector<int>pathVis(numCourses,0);
         for(int i = 0; i < numCourses; i++){
             if(!vis[i]){
-                if(dfs(i,adjList,vis,pathVis) == true){
+                if(dfs(i,adjList,vis) == true){
                     return false;
                 }
             }
