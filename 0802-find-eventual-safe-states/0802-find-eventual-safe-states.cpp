@@ -1,31 +1,44 @@
 class Solution {
 public:
-    bool dfs(int i, vector<vector<int>>& graph, vector<int> &vis, vector<int> &check){
-        vis[i] = 2;
-        for(auto it : graph[i]){
-            if(!vis[it]){
-                if(dfs(it,graph,vis,check) == false) return false;
-            }
-            else if(vis[it] == 2) return false;
-        }
-
-        check[i] = 1;
-        vis[i] = 1;
-        return true;
-    }
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
         int n = graph.size();
-        vector<int>vis(n,0);
-        vector<int>check(n,0);
-        for(int i = 0; i < n; i++){
-            if(!vis[i]){
-                dfs(i,graph,vis,check);
+
+        vector<vector<int>> revGraph(n);
+        vector<int> indegree(n, 0);
+
+        // Reverse the graph and store original outdegree
+        for (int u = 0; u < n; u++) {
+            for (int v : graph[u]) {
+                revGraph[v].push_back(u);
+                indegree[u]++;
             }
         }
-        vector<int>ans;
-        for(int i = 0; i < n; i++){
-            if(check[i] == 1) ans.push_back(i);
+
+        queue<int> q;
+
+        // Terminal nodes
+        for (int i = 0; i < n; i++) {
+            if (indegree[i] == 0)
+                q.push(i);
         }
+
+        vector<int> ans;
+
+        while (!q.empty()) {
+            int node = q.front();
+            q.pop();
+
+            ans.push_back(node);
+
+            for (int parent : revGraph[node]) {
+                indegree[parent]--;
+
+                if (indegree[parent] == 0)
+                    q.push(parent);
+            }
+        }
+
+        sort(ans.begin(), ans.end());
         return ans;
     }
 };
