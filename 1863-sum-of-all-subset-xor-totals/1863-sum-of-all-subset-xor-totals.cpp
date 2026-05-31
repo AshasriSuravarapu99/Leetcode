@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int ans = 0;
+    void fun(int i, vector<int> &nums, vector<int> &xorr){
+        if(i == nums.size()){
+            int tot = 0;
+            for(int i = 0; i < xorr.size(); i++){
+                tot = tot ^ xorr[i];
+            }
+            ans+=tot;
+            return;
+        }
+
+        xorr.push_back(nums[i]);
+        fun(i+1,nums,xorr);
+        xorr.pop_back();
+        fun(i+1,nums,xorr);
+    }
+    int subsetXORSum(vector<int>& nums) {
+        vector<int>xorr;
+        fun(0,nums,xorr);
+        return ans;
+    }
+};
