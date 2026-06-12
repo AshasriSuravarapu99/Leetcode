@@ -1,18 +1,48 @@
 class Solution {
 public:
-    int ans = 0;
-    void find(int i, vector<int> &nums, int sum , int target){
-        if(i >= nums.size()){
-            if(sum == target) ans++;
-            return;
+
+    unordered_map<string,int> dp;
+
+    int solve(int i,
+              int sum,
+              vector<int>& nums,
+              int target) {
+
+        // all numbers used
+        if(i == nums.size()) {
+
+            return sum == target;
         }
 
-        find(i+1,nums,sum+nums[i],target);
-        find(i+1,nums,sum-nums[i],target);
+        string key =
+            to_string(i) + "," +
+            to_string(sum);
+
+        // memoized state
+        if(dp.count(key)) {
+            return dp[key];
+        }
+
+        // choose +
+        int add =
+            solve(i + 1,
+                  sum + nums[i],
+                  nums,
+                  target);
+
+        // choose -
+        int subtract =
+            solve(i + 1,
+                  sum - nums[i],
+                  nums,
+                  target);
+
+        return dp[key] = add + subtract;
     }
-    int findTargetSumWays(vector<int>& nums, int target) {
-        int n = nums.size();
-        find(0,nums,0,target);
-        return ans;
+
+    int findTargetSumWays(vector<int>& nums,
+                          int target) {
+
+        return solve(0, 0, nums, target);
     }
 };
