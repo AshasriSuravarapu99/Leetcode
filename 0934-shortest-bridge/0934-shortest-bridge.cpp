@@ -17,7 +17,6 @@ public:
                         q.pop();
                         int a = temp[0];
                         int b = temp[1];
-                        cout << a << " " << b << " " << grid[a][b] << "\n";
                         q1.push({a,b,0});
                         for(auto i:dir){
                             int x = a+i[0];
@@ -41,7 +40,6 @@ public:
             int a = temp[0];
             int b = temp[1];
             int cnt = temp[2];
-            cout << "{" << a << " " << b << " "  << "}" << cnt<<"\n";
             q1.pop();
             if(cnt > dist[a][b]) continue;
             for(auto i:dir){
@@ -71,7 +69,6 @@ public:
                         int a = temp[0];
                         int b = temp[1];
                         res = min(res,dist[a][b]);
-                        // q1.push({a,b,0});
                         for(auto i:dir){
                             int x = a+i[0];
                             int y = b+i[1];
