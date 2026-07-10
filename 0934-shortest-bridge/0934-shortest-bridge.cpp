@@ -51,7 +51,7 @@ public:
                     }
                     else if(grid[x][y] == 0 && cnt+1 < dist[x][y]){
                         dist[x][y] = cnt+1;
-                        vis[x][y] = 1;
+                        // vis[x][y] = 1;
                         q1.push({x,y,cnt+1});
                     }
                 }
