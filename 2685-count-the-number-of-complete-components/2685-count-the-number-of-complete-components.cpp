@@ -17,11 +17,6 @@ public:
             }
         }
         int s = subGraph.size();
-        // for(auto i : subGraph){
-        //     cout<<i<<" ";
-        //     // if(adj[i].size() != s-1) return false;
-        // }
-        // cout<<"\n";
         for(auto i : subGraph){
             if(adj[i].size() != s-1) return false;
         }
