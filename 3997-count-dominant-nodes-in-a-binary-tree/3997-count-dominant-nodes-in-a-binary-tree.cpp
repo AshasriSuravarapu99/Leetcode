@@ -11,23 +11,22 @@
  */
 class Solution {
 public:
-    int ans = 0;
-    int count(TreeNode* root){
+    int count(TreeNode* root, int &ans){
         if(root == nullptr) return 0;
 
-        int left = count(root->left);
-        int right = count(root -> right);
+        int left = count(root->left, ans);
+        int right = count(root -> right, ans);
 
         int val = root->val;
         if(val >= left && val >= right){
             ans++;
             return val;
         }
-        else if(left > right) return left;
-        else return right;
+        return max(left,right);
     }
     int countDominantNodes(TreeNode* root) {
-        int a = count(root);
+        int ans= 0;
+        int a = count(root,ans);
         return ans;
     }
 };
