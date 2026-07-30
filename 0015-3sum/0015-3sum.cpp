@@ -14,16 +14,16 @@ public:
                     ans.push_back({nums[i],nums[j],nums[k]});
                     j++;
                     k--;
-                    while(j < n && nums[j] == nums[j-1]) j++;
-                    while(k >= 0 && nums[k] == nums[k+1]) k--;
+                    while(j < k && nums[j] == nums[j-1]) j++;
+                    while(k > j && nums[k] == nums[k+1]) k--;
                 }
                 else if(val < 0){
                     j++;
-                    while(j < n && nums[j] == nums[j-1]) j++;
+                    while(j < k && nums[j] == nums[j-1]) j++;
                 }
                 else{
                     k--;
-                    while(k >= 0 && nums[k] == nums[k+1]) k--;
+                    while(k > j && nums[k] == nums[k+1]) k--;
                 }
 
             }
